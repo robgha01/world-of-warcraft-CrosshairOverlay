@@ -4,15 +4,12 @@ CrosshairOverlay.MainFrame:Hide()
 CrosshairOverlay.MainFrame:SetScript("OnEvent", function(self, event)
 	if event=="PLAYER_ENTERING_WORLD" then
 		-- Entering world
-		--print("PLAYER_ENTERING_WORLD")
 		CrosshairOverlay.MainFrame:Hide()
 	elseif event=="PLAYER_REGEN_DISABLED" then
 		-- Entering combat
-		--print("Entering combat")
 		CrosshairOverlay.MainFrame:Show()
 	elseif event=="PLAYER_REGEN_ENABLED" then
 		-- Leaving combat
-		--print("Leaving combat")
 		CrosshairOverlay.MainFrame:Hide()
 	elseif event=="CINEMATIC_START" then
 		CrosshairOverlay.MainFrame:Hide()
@@ -27,13 +24,11 @@ CrosshairOverlay.MainFrame:SetFrameStrata('BACKGROUND')
 CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, 35)
 CrosshairOverlay.MainFrame:SetSize(16, 16)
 
-function CrosshairOverlay:RefreshConfig()
-	CrosshairOverlay:SendMessage("CrosshairOverlay:OnRefreshConfig")
-	CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnInitialize")
-end
-
 function CrosshairOverlay:OnInitialize()
 	CrosshairOverlay.db = LibStub("AceDB-3.0"):New("CrosshairOverlayDB", {}, "Default")
+	CrosshairOverlay.db.RegisterCallback(self, "OnProfileChanged", "RefreshConfig")
+	CrosshairOverlay.db.RegisterCallback(self, "OnProfileCopied", "RefreshConfig")
+	CrosshairOverlay.db.RegisterCallback(self, "OnProfileReset", "RefreshConfig")
 	CrosshairOverlay.db:RegisterDefaults({
 		global = {
 			skins = {},
@@ -43,7 +38,7 @@ function CrosshairOverlay:OnInitialize()
 			activeSkin = "Circle"			
         },
     })
-	
+
 	-- Perform skin registrations.
 	CrosshairOverlay:SendMessage("CrosshairOverlay:OnRegister")
 	
@@ -54,14 +49,8 @@ function CrosshairOverlay:OnInitialize()
 	CrosshairOverlay.optionsframe = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("CrosshairOverlay", "Crosshair Overlay")
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("CrosshairOverlay", CrosshairOverlay.optionsTable)
 	
-	--print("ACTIVE SKIN IS: " .. CrosshairOverlay.db.profile.activeSkin)
-
 	CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnInitialize")
-	CrosshairOverlay.db.RegisterCallback(self, "OnProfileChanged", "RefreshConfig")
-	CrosshairOverlay.db.RegisterCallback(self, "OnProfileCopied", "RefreshConfig")
-	CrosshairOverlay.db.RegisterCallback(self, "OnProfileReset", "RefreshConfig")
 	CrosshairOverlay:RegisterChatCmd()
-	print(CrosshairOverlay.skins)
 end
 
 function CrosshairOverlay:OnEnable()
@@ -70,4 +59,16 @@ end
 
 function CrosshairOverlay:OnDisable()
 	CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnDisable")
+end
+
+function CrosshairOverlay:RefreshConfig()
+	CrosshairOverlay:SendMessage("CrosshairOverlay:OnRefreshConfig")
+
+	-- First disable all skins
+	for k, v in pairs(CrosshairOverlay.db.global.skins) do
+		CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnDisable")	
+	end
+	
+	-- Enable the chosen skin
+	CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnEnable")
 end
