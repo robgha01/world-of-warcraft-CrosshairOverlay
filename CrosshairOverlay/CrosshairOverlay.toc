@@ -1,0 +1,10 @@
+## Interface: 70200
+## Title: CrosshairOverlay
+## Version: 1.0
+## Author: Robert
+## SavedVariables: CrosshairOverlayDB
+embeds.xml
+
+Options.lua
+CrosshairOverlay.lua
+Skins\Circle\CircleSkin.lua
