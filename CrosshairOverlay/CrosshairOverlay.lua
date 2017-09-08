@@ -1,6 +1,3 @@
-local alpha = 0.5
-local Speed = 10 -- Higher number moves crosshair faster
-
 local _, addon = ...
 CrosshairOverlay.MainFrame = CreateFrame('frame', nil, WorldFrame)
 CrosshairOverlay.MainFrame:Hide()
@@ -56,7 +53,9 @@ function CrosshairOverlay:OnInitialize()
 	CrosshairOverlay:InitializeOptions()
 	CrosshairOverlay.optionsframe = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("CrosshairOverlay", "Crosshair Overlay")
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("CrosshairOverlay", CrosshairOverlay.optionsTable)
-		
+	
+	--print("ACTIVE SKIN IS: " .. CrosshairOverlay.db.profile.activeSkin)
+
 	CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnInitialize")
 	CrosshairOverlay.db.RegisterCallback(self, "OnProfileChanged", "RefreshConfig")
 	CrosshairOverlay.db.RegisterCallback(self, "OnProfileCopied", "RefreshConfig")
