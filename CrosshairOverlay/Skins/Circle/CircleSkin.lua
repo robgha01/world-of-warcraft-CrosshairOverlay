@@ -1,31 +1,30 @@
 -- Author      : Robert
 -- Create Date : 9/8/2017 3:35:59 PM
 
-local circle = nil
-local tx = nil
 local skinName = "Circle"
 
-AceEvent:RegisterEvent("CrosshairOverlay:OnRegister",
+CrosshairOverlay:RegisterMessage("CrosshairOverlay:OnRegister",
 	function(event, ...)
-		CrosshairOverlay.db.global.skins[CrosshairOverlay.skinsPath .. skinName] = skinName	
+		print("CrosshairOverlay:OnRegister: " .. skinName)
+		CrosshairOverlay:RegisterSkin(skinName)		
 	end)
 
-AceEvent:RegisterEvent("CrosshairOverlay:" .. skinName .. ":OnInitialize",
+CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnInitialize",
 	function(event, ...)
-		circle = CrosshairOverlay:MainFrame:CreateTexture(nil, 'BACKGROUND')
+		local circle = CrosshairOverlay.MainFrame:CreateTexture(nil, 'BACKGROUND')
 		circle:SetTexture(CrosshairOverlay.skinsPath .. "circle")
 		circle:SetAllPoints()
 		circle:SetAlpha(alpha)
 		circle:SetBlendMode('ADD')
 		circle:SetVertexColor(6.7, 35.3, 43.5)
 		
-		tx = CrosshairOverlay:MainFrame:CreateTexture(nil, 'BACKGROUND')
+		local tx = CrosshairOverlay.MainFrame:CreateTexture(nil, 'BACKGROUND')
 		tx:SetTexture(CrosshairOverlay.skinsPath .. "arrows")
 		tx:SetAllPoints()
 		tx:SetVertexColor(1, 1, 1)
 
-		circle:Show()
-		tx:Show()
+		--circle:Show()
+		--tx:Show()
 
 		local ag = tx:CreateAnimationGroup()
 		ag:SetLooping('REPEAT')
@@ -39,7 +38,7 @@ AceEvent:RegisterEvent("CrosshairOverlay:" .. skinName .. ":OnInitialize",
 		alpha:SetDuration(0.5)
 	end)
 
-AceEvent:RegisterEvent("CrosshairOverlay:OnRefreshConfig",
+CrosshairOverlay:RegisterMessage("CrosshairOverlay:OnRefreshConfig",
 	function(event, ...)
 		circle:Hide()
 		tx:Hide()

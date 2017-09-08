@@ -11,11 +11,20 @@
     <OutputPath>.</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Skins\Circle\arrows.blp" />
-    <Content Include="Skins\Circle\circle.blp" />
-    <Content Include="Options.lua">
+    <Content Include="Framework\Bootstrap.lua">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Framework\Commands.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Framework\Options.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Framework\SkinFunctions.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Skins\Circle\arrows.blp" />
+    <Content Include="Skins\Circle\circle.blp" />
     <Content Include="CrosshairOverlay.toc">
       <SubType>TableOfContents</SubType>
     </Content>
@@ -212,6 +221,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Framework" />
     <Folder Include="Skins\Circle" />
     <Folder Include="Libs\" />
     <Folder Include="Libs\AceAddon-3.0\" />

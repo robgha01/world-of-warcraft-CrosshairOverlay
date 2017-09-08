@@ -5,6 +5,9 @@
 ## SavedVariables: CrosshairOverlayDB
 embeds.xml
 
-Options.lua
-CrosshairOverlay.lua
+Framework\Bootstrap.lua
+Framework\Options.lua
+Framework\SkinFunctions.lua
+Framework\Commands.lua
 Skins\Circle\CircleSkin.lua
+CrosshairOverlay.lua
