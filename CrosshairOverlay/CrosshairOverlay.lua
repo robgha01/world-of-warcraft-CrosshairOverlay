@@ -49,8 +49,11 @@ function CrosshairOverlay:OnInitialize()
 	CrosshairOverlay.optionsframe = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("CrosshairOverlay", "Crosshair Overlay")
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("CrosshairOverlay", CrosshairOverlay.optionsTable)
 	
-	CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnInitialize")
 	CrosshairOverlay:RegisterChatCmd()
+
+	if(CrosshairOverlay.db.profile.enabled) then
+		CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnInitialize")
+	end
 end
 
 function CrosshairOverlay:OnEnable()

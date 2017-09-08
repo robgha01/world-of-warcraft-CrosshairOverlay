@@ -12,7 +12,7 @@ function CrosshairOverlay:InitializeOptions()
 		  type = "toggle",
 		  set = function(info,val)
 					CrosshairOverlay.db.profile.enabled = val
-					if(val)
+					if(val) then
 						CrosshairOverlay:OnEnable()
 					else
 						CrosshairOverlay:OnDisable()
