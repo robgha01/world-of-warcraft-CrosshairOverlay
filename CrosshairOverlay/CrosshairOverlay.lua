@@ -35,7 +35,8 @@ function CrosshairOverlay:OnInitialize()
 		},
         profile = {
             enable = true,
-			activeSkin = "Circle"			
+			activeSkin = "Circle",
+			themeSettings = {}						
         },
     })
 
@@ -54,6 +55,11 @@ function CrosshairOverlay:OnInitialize()
 	if(CrosshairOverlay.db.profile.enabled) then
 		CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnInitialize")
 	end
+
+	if(CrosshairOverlay.db.profile.activeSkin ~= "") then
+		-- Update the theme settings for this active skin
+		CrosshairOverlay:SetActiveThemeSettings(CrosshairOverlay.db.profile.activeSkin)
+	end
 end
 
 function CrosshairOverlay:OnEnable()
@@ -69,9 +75,12 @@ function CrosshairOverlay:RefreshConfig()
 
 	-- First disable all skins
 	for k, v in pairs(CrosshairOverlay.db.global.skins) do
-		CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnDisable")	
+		CrosshairOverlay:SendMessage("CrosshairOverlay:" .. v .. ":OnDisable")
 	end
 	
+	-- Update the theme settings for this active skin
+	CrosshairOverlay:SetActiveThemeSettings(CrosshairOverlay.db.profile.activeSkin)
+
 	-- Enable the chosen skin
 	CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnEnable")
 end
