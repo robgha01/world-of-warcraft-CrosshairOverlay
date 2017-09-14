@@ -18,7 +18,7 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnInitiali
 		circle:Hide()
 		circle:SetTexture(CrosshairOverlay.skinsPath .. "Circle/circle")
 		circle:SetAllPoints()
-		circle:SetAlpha(alpha)
+		--circle:SetAlpha(alpha)
 		circle:SetBlendMode('ADD')
 		circle:SetVertexColor(6.7, 35.3, 43.5)
 		
@@ -29,16 +29,19 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnInitiali
 		tx:SetVertexColor(1, 1, 1)
 		
 		local ag = tx:CreateAnimationGroup()
+		local rotation = ag:CreateAnimation('Rotation')
+		rotation:SetDegrees(-360)
+		rotation:SetDuration(5)
 		ag:SetLooping('REPEAT')
 		ag:Play()
 
-		local group = tx:CreateAnimationGroup()
-		group:SetToFinalAlpha(true)
+		--local group = tx:CreateAnimationGroup()
+		--group:SetToFinalAlpha(true)
 
-		local alpha = group:CreateAnimation('Alpha')
-		alpha:SetFromAlpha(0)
-		alpha:SetToAlpha(1)
-		alpha:SetDuration(0.5)
+		--local alpha = group:CreateAnimation('Alpha')
+		--alpha:SetFromAlpha(0)
+		--alpha:SetToAlpha(100)
+		--alpha:SetDuration(0.5)
 	end)
 
 CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnEnable",
