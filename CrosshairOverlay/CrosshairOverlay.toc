@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Title: CrosshairOverlay
-## Version: 1.0
+## Version: 1.1
 ## Author: Robert
 ## SavedVariables: CrosshairOverlayDB
 embeds.xml

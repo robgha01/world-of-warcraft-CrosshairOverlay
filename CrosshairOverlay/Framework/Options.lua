@@ -27,6 +27,13 @@ function CrosshairOverlay:InitializeOptions()
 				end,
 		  get = function(info) return CrosshairOverlay.db.profile.enabled end
 		},
+		debug = {
+		  name = "Debug",
+		  desc = "Enables / disables debug",
+		  type = "toggle",
+		  set = function(info,val) CrosshairOverlay.db.profile.debug = val end,
+		  get = function(info) return CrosshairOverlay.db.profile.debug end
+		},
 		appearance = {
 		  name = "Appearance",
 		  type = "group",
