@@ -10,3 +10,11 @@ function CrosshairOverlay:RegisterSkin(skinName, skinOptions)
 	CrosshairOverlay.skins[skinName] = skinName
 	CrosshairOverlay.skinOptions[skinName] = skinOptions
 end
+
+function CrosshairOverlay:SetYAxis(value)
+	CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, value)
+end
+
+function CrosshairOverlay:RevertChanges()
+	CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, 35)
+end

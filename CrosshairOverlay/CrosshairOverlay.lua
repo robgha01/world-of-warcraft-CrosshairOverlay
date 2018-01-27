@@ -161,6 +161,9 @@ function CrosshairOverlay:OnDisable()
 end
 
 function CrosshairOverlay:RefreshConfig()
+	CrosshairOverlay:AddDebug("Reverting any changes made by a skin to default")
+	CrosshairOverlay:RevertChanges()
+
 	CrosshairOverlay:AddDebug("Event", "OnRefreshConfig")
 	CrosshairOverlay:SendMessage("CrosshairOverlay:OnRefreshConfig")
 

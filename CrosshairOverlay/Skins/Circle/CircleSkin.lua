@@ -8,6 +8,20 @@ local rotation
 local skinName = "Circle"
 local alpha = 0.5
 local Speed = 10 -- Higher number moves crosshair faster
+local isPreviewScheduledHide = false
+
+local preview = function()
+	CrosshairOverlay.MainFrame:Show()
+	if isPreviewScheduledHide == false then
+		isPreviewScheduledHide = true
+		CrosshairOverlay:ScheduleTimer("CirclePreviewEnd", 20)
+	end
+end
+
+function CrosshairOverlay:CirclePreviewEnd()
+	isPreviewScheduledHide = false
+	CrosshairOverlay.MainFrame:Hide()
+end
 
 CrosshairOverlay:RegisterMessage("CrosshairOverlay:OnRegister",
 	function(event, ...)
@@ -34,6 +48,21 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:OnRegister",
 						end
 					end,
 			  get = function(info) return CrosshairOverlay.db.profile.themeSettings.circle.enableAnimation end
+			},
+			circleYAxis = {
+			  name = "Y Axis",
+			  desc = "Calibrate the y axis",
+			  type = "range",
+			  min = -500,
+			  max = 500,
+			  softMin = 35,
+			  softMax = 500,
+			  set = function(info,val)
+						CrosshairOverlay.db.profile.themeSettings.circle.circleYAxis = val
+						CrosshairOverlay:SetYAxis(val)
+						preview()
+					end,
+			  get = function(info) return CrosshairOverlay.db.profile.themeSettings.circle.circleYAxis end
 			}
 		})
 	end)
@@ -73,6 +102,7 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnEnable",
 	function(event, ...)
 		circle:Show()
 		tx:Show()
+		CrosshairOverlay:SetYAxis(val)
 	end)
 
 CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnDisable",
