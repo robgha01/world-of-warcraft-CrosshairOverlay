@@ -8,20 +8,6 @@ local rotation
 local skinName = "Circle"
 local alpha = 0.5
 local Speed = 10 -- Higher number moves crosshair faster
-local isPreviewScheduledHide = false
-
-local preview = function()
-	CrosshairOverlay.MainFrame:Show()
-	if isPreviewScheduledHide == false then
-		isPreviewScheduledHide = true
-		CrosshairOverlay:ScheduleTimer("CirclePreviewEnd", 20)
-	end
-end
-
-function CrosshairOverlay:CirclePreviewEnd()
-	isPreviewScheduledHide = false
-	CrosshairOverlay.MainFrame:Hide()
-end
 
 CrosshairOverlay:RegisterMessage("CrosshairOverlay:OnRegister",
 	function(event, ...)
@@ -49,7 +35,7 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:OnRegister",
 					end,
 			  get = function(info) return CrosshairOverlay.db.profile.themeSettings.circle.enableAnimation end
 			},
-			circleYAxis = {
+			circleYAxis = { -- ToDo: This should apply to all themes, move it!
 			  name = "Y Axis",
 			  desc = "Calibrate the y axis",
 			  type = "range",
@@ -60,7 +46,6 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:OnRegister",
 			  set = function(info,val)
 						CrosshairOverlay.db.profile.themeSettings.circle.circleYAxis = val
 						CrosshairOverlay:SetYAxis(val)
-						preview()
 					end,
 			  get = function(info) return CrosshairOverlay.db.profile.themeSettings.circle.circleYAxis end
 			}
@@ -100,9 +85,9 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnInitiali
 
 CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnEnable",
 	function(event, ...)
+		CrosshairOverlay:SetYAxis(CrosshairOverlay.db.profile.themeSettings.circle.circleYAxis) -- ToDo: move this
 		circle:Show()
-		tx:Show()
-		CrosshairOverlay:SetYAxis(val)
+		tx:Show()		
 	end)
 
 CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnDisable",

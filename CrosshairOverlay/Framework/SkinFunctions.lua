@@ -12,6 +12,7 @@ function CrosshairOverlay:RegisterSkin(skinName, skinOptions)
 end
 
 function CrosshairOverlay:SetYAxis(value)
+	CrosshairOverlay:AddDebug("[".. CrosshairOverlay.db.profile.activeSkin .."] Setting Y-Axis", value)
 	CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, value)
 end
 

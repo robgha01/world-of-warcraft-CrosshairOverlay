@@ -3,7 +3,8 @@
 
 local function ChatCmd(input)
 	if not input or input:trim() == "" then
-		InterfaceOptionsFrame_OpenToCategory(CrosshairOverlay.optionsframe)
+		LibStub("AceConfigDialog-3.0"):Open("CrosshairOverlay")
+		--InterfaceOptionsFrame_OpenToCategory(CrosshairOverlay.optionsframe)
 	else
 		LibStub("AceConfigCmd-3.0").HandleCommand(CrosshairOverlay, "cro", "CrosshairOverlay", input:trim() ~= "help" and input or "")
 	end

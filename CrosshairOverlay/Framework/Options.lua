@@ -1,5 +1,5 @@
--- Author      : Robert
--- Create Date : 9/8/2017 3:12:10 PM
+local AceConfigDialog = LibStub('AceConfigDialog-3.0')
+local AceGUI = LibStub("AceGUI-3.0")
 
 function CrosshairOverlay:SetActiveThemeSettings(skinName)
 	local skinOpt = CrosshairOverlay.skinOptions[skinName]
@@ -8,8 +8,40 @@ function CrosshairOverlay:SetActiveThemeSettings(skinName)
 	end
 end
 
+local optFrameOnClose = function(widget)
+	CrosshairOverlay.MainFrame:Hide()
+	AceGUI:Release(widget)
+end
+
 function CrosshairOverlay:InitializeOptions()
+	-- Create a ace container for our options dialog.
+	CrosshairOverlay.OptFrame = AceGUI:Create("Frame")
+	CrosshairOverlay.OptFrame:SetCallback("OnClose", optFrameOnClose)
+	CrosshairOverlay.OptFrame:SetLayout("Flow")
+	CrosshairOverlay.OptFrame:Hide()
+
+	-- Create option tables
 	CrosshairOverlay.skinsPath = [[interface/addons/CrosshairOverlay/Skins/]]
+	CrosshairOverlay.blizOptionsTable = {
+		type = "group",
+		args = {
+			configure = {
+				name = "Configure",
+				type = "execute",
+				func = function()
+					InterfaceOptionsFrameCancel_OnClick()
+					HideUIPanel(GameMenuFrame)
+					CrosshairOverlay.MainFrame:Show()
+					
+					-- Enable the chosen skin
+					CrosshairOverlay:AddDebug("Event", "CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnEnable")
+					CrosshairOverlay:SendMessage("CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnEnable")
+
+					AceConfigDialog:Open("CrosshairOverlay", CrosshairOverlay.OptFrame)
+				end
+			}			
+		}
+	}
 	CrosshairOverlay.optionsTable = {
 	  type = "group",
 	  args = {

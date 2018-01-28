@@ -131,7 +131,8 @@ function CrosshairOverlay:OnInitialize()
 	CrosshairOverlay.db.global.skins = CrosshairOverlay.skins
 
 	CrosshairOverlay:InitializeOptions()
-	CrosshairOverlay.optionsframe = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("CrosshairOverlay", "Crosshair Overlay")
+	CrosshairOverlay.optionsframe = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("BlizCrosshairOverlay", "Crosshair Overlay")
+	LibStub("AceConfig-3.0"):RegisterOptionsTable("BlizCrosshairOverlay", CrosshairOverlay.blizOptionsTable)
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("CrosshairOverlay", CrosshairOverlay.optionsTable)
 	
 	CrosshairOverlay:RegisterChatCmd()
