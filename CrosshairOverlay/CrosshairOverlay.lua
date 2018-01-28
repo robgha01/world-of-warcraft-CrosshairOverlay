@@ -102,10 +102,10 @@ CrosshairOverlay.MainFrame:SetScript("OnEvent", function(self, event)
 end)
 CrosshairOverlay.MainFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
 CrosshairOverlay.MainFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-CrosshairOverlay.MainFrame:SetFrameLevel(0)
-CrosshairOverlay.MainFrame:SetFrameStrata('BACKGROUND')
-CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, 35)
-CrosshairOverlay.MainFrame:SetSize(16, 16)
+--CrosshairOverlay.MainFrame:SetFrameLevel(0)
+--CrosshairOverlay.MainFrame:SetFrameStrata('BACKGROUND')
+--CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, 35)
+--CrosshairOverlay.MainFrame:SetSize(16, 16)
 
 function CrosshairOverlay:OnInitialize()
 	CrosshairOverlay.db = LibStub("AceDB-3.0"):New("CrosshairOverlayDB", {}, "Default")
@@ -120,7 +120,9 @@ function CrosshairOverlay:OnInitialize()
             enable = true,
 			debug = false,
 			activeSkin = "Circle",
-			themeSettings = {}						
+			themeSettings = {
+				crosshairYAxis = 35
+			}						
         },
     })
 
@@ -145,6 +147,8 @@ function CrosshairOverlay:OnInitialize()
 		CrosshairOverlay:SetActiveThemeSettings(CrosshairOverlay.db.profile.activeSkin)
 		CrosshairOverlay:AddDebug("active skin", CrosshairOverlay.db.profile.activeSkin)
 	end
+
+	CrosshairOverlay:SetDefault()
 end
 
 function CrosshairOverlay:OnEnable()
@@ -163,7 +167,7 @@ end
 
 function CrosshairOverlay:RefreshConfig()
 	CrosshairOverlay:AddDebug("Reverting any changes made by a skin to default")
-	CrosshairOverlay:RevertChanges()
+	CrosshairOverlay:SetDefault()
 
 	CrosshairOverlay:AddDebug("Event", "OnRefreshConfig")
 	CrosshairOverlay:SendMessage("CrosshairOverlay:OnRefreshConfig")

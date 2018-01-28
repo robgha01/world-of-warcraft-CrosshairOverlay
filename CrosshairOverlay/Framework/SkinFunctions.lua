@@ -16,7 +16,10 @@ function CrosshairOverlay:SetYAxis(value)
 	CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, value)
 end
 
-function CrosshairOverlay:RevertChanges()
-	CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, 35)
-	CrosshairOverlay:SetYAxis(CrosshairOverlay.db.profile.themeSettings.crosshairYAxis)
+function CrosshairOverlay:SetDefault()
+	CrosshairOverlay:AddDebug("Reverting any changes made by a skin to default")
+	CrosshairOverlay.MainFrame:SetFrameLevel(0)
+	CrosshairOverlay.MainFrame:SetFrameStrata('BACKGROUND')
+	CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, CrosshairOverlay.db.profile.themeSettings.crosshairYAxis)
+	CrosshairOverlay.MainFrame:SetSize(16, 16)
 end

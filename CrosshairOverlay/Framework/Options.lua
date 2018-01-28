@@ -21,9 +21,7 @@ function CrosshairOverlay:InitializeOptions()
 					InterfaceOptionsFrameCancel_OnClick()
 					HideUIPanel(GameMenuFrame)
 					CrosshairOverlay.MainFrame:Show()
-					
-					CrosshairOverlay:AddDebug("Reverting any changes made by a skin to default")
-					CrosshairOverlay:RevertChanges()
+					CrosshairOverlay:SetDefault()
 
 					-- Enable the chosen skin
 					CrosshairOverlay:AddDebug("Event", "CrosshairOverlay:" .. CrosshairOverlay.db.profile.activeSkin .. ":OnEnable")
