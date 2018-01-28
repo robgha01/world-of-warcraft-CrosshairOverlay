@@ -18,4 +18,5 @@ end
 
 function CrosshairOverlay:RevertChanges()
 	CrosshairOverlay.MainFrame:SetPoint('CENTER', WorldFrame, 0, 35)
+	CrosshairOverlay:SetYAxis(CrosshairOverlay.db.profile.themeSettings.crosshairYAxis)
 end

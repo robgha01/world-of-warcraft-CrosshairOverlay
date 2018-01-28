@@ -34,20 +34,6 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:OnRegister",
 						end
 					end,
 			  get = function(info) return CrosshairOverlay.db.profile.themeSettings.circle.enableAnimation end
-			},
-			circleYAxis = { -- ToDo: This should apply to all themes, move it!
-			  name = "Y Axis",
-			  desc = "Calibrate the y axis",
-			  type = "range",
-			  min = -500,
-			  max = 500,
-			  softMin = 35,
-			  softMax = 500,
-			  set = function(info,val)
-						CrosshairOverlay.db.profile.themeSettings.circle.circleYAxis = val
-						CrosshairOverlay:SetYAxis(val)
-					end,
-			  get = function(info) return CrosshairOverlay.db.profile.themeSettings.circle.circleYAxis end
 			}
 		})
 	end)
@@ -85,7 +71,6 @@ CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnInitiali
 
 CrosshairOverlay:RegisterMessage("CrosshairOverlay:" .. skinName .. ":OnEnable",
 	function(event, ...)
-		CrosshairOverlay:SetYAxis(CrosshairOverlay.db.profile.themeSettings.circle.circleYAxis) -- ToDo: move this
 		circle:Show()
 		tx:Show()		
 	end)
